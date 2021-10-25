@@ -4,6 +4,15 @@
 
 
     <div class="container">
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -54,10 +63,28 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="task_start_date"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Task start date') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="task_start_date" type="date" class="form-control" name="task_start_date" value="{{$task->start_date}}"
+                                        autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="task_end_date"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Task end date') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="task_end_date" type="date" class="form-control" name="task_end_date" value="{{$task->end_date}}"
+                                        autofocus>
+                                </div>
+                            </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
+                                        {{ __('Edit') }}
                                     </button>
                                 </div>
                             </div>

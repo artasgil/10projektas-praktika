@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\Type;
+use App\PaginatonSetting;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -21,8 +22,19 @@ class TaskController extends Controller
         $collumnName = $request->collumnName;
         $sortby=$request->sortby;
         $search = $request->search;
+        $paginatonsettings = PaginatonSetting::all();
 
+        $paginatonsetting = $request->paginatonsetting;
 
+        if(!$paginatonsetting) {
+            $paginatonsetting = 30;
+        }
+
+        // if($paginatonsetting == 1) {
+        //     $tasks = Task::orderBy($collumnName, $sortby)->get();
+        // }else {
+        //     $tasks = Task::orderBy($collumnName, $sortby)->paginate($paginatonsetting);
+        // }
         // if(!$search) {
         //     $tasks = Task::paginate(5);
 
@@ -36,25 +48,35 @@ class TaskController extends Controller
         }
 
         if(!$type_id && !$search) {
-            $tasks = Task::orderBy($collumnName, $sortby)->paginate(5);
-        } else {
-
+            if($paginatonsetting == 1) {
+                $tasks = Task::orderBy($collumnName, $sortby)->get();
+            }
+            else {
+                $tasks = Task::orderBy($collumnName, $sortby)->paginate($paginatonsetting);
+            }
+        }
             if($search) {
-                 $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate(10);
-            }
+                if($paginatonsetting == 1) {
+                    $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->get();
 
+                }
+                else {
+                    $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate($paginatonsetting);
+                }
+            }
             if($type_id) {
-                $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->paginate(10);
+                if($paginatonsetting == 1) {
+                    $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->get();
 
             }
-            // $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate(10);
+            else{
+            $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->paginate($paginatonsetting);
+            }
         }
 
+            // $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate(10);
 
-
-
-
-        return view("task.index", ["tasks" => $tasks, 'collumnName' => $collumnName, 'sortby' => $sortby, "types" => $types,"type_id"=> $type_id]);
+        return view("task.index", ["tasks" => $tasks, "paginatonsettings" => $paginatonsettings, 'collumnName' => $collumnName, 'sortby' => $sortby, "types" => $types,"type_id"=> $type_id, "defaultLimit" => $paginatonsetting, "paginatonsettingg" => $paginatonsetting] );
 
     }
 
@@ -116,7 +138,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $types = Type::all();
+        $types = Type::all()->sortBy("title", SORT_REGULAR, true);
         return view('task.edit',["task" => $task, "types"=>$types]);
     }
 
@@ -129,9 +151,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        $request->validate ([
+            'task_end_date'=>'after:task_start_date'
+        ]);
+
         $task->title = $request->task_title;
         $task->description = $request->task_description;
         $task->type_id = $request->type_id;
+        $task->start_date = $request->task_start_date;
+        $task->end_date = $request->task_end_date;
 
         if($request->has('task_logo'))
         {

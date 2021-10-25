@@ -14,12 +14,23 @@
     {{session()->get("sucess_message")}}
     </div>
     @endif
+
+    <form action="{{route('type.index')}}" method="GET">
+        @csrf
+        <input type="text" name="search" placeholder="Enter search key"/>
+        <button type="submit">Search</button>
+    </form>
+
+    <td>
+        <a href="{{route('type.index')}}" name="clear" class="btn btn-secondary">Clear filter </a>
+    </td>
+
     <table class="table table-striped">
 
         <tr>
-            <th> ID </th>
-            <th> Title </th>
-            <th> Description </th>
+            <th> @sortablelink('id', 'ID') </th>
+            <th> @sortablelink('title', 'Title') </th>
+            <th> @sortablelink('description', 'Description') </th>
             <th> Action </th>
             <th> Action </th>
             <th> Action </th>
@@ -46,7 +57,7 @@
         @endforeach
         </table>
         {{-- {{$tasks->links()}} --}}
-        {{-- {!! $tasks->appends(Request::except('page'))->render() !!} --}}
+        {!! $types->appends(Request::except('page'))->render() !!}
 
 
     </div>

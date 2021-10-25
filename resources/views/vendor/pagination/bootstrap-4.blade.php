@@ -1,3 +1,4 @@
+
 @if ($paginator->hasPages())
     <nav>
         <ul class="pagination">
@@ -43,7 +44,5 @@
             @endif
             <li class="page-item active" aria-current="page"><span class="page-link">Total pages: {{$paginator->lastPage()}} , Total items: {{$paginator->total()}}</span></li>
         </ul>
-
-
     </nav>
 @endif

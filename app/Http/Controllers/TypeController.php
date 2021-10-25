@@ -14,9 +14,14 @@ class TypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $types = Type::all();
+        // $types = Type::all();
+        $search = $request->search;
+
+        $types = Type::query()->sortable()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate(30);
+
+
         return view("type.index", ["types" => $types]);
 
     }
