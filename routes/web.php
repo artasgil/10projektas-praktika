@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Auth;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,25 +22,37 @@ Route::get('/', function () {
 
 Route::prefix('task')->group(function () {
 
-    Route::get('','TaskController@index')->name('task.index');
-    Route::get('create', 'TaskController@create')->name('task.create');
-    Route::post('store', 'TaskController@store')->name('task.store');
-    Route::get('edit/{task}', 'TaskController@edit')->name('task.edit');
-    Route::post('update/{task}', 'TaskController@update')->name('task.update');
-    Route::post('delete/{task}', 'TaskController@destroy')->name('task.destroy');
-    Route::get('show/{task}', 'TaskController@show')->name('task.show');
+    Route::get('','TaskController@index')->name('task.index')->middleware("auth");
+    Route::get('create', 'TaskController@create')->name('task.create')->middleware("auth");
+    Route::post('store', 'TaskController@store')->name('task.store')->middleware("auth");
+    Route::get('edit/{task}', 'TaskController@edit')->name('task.edit')->middleware("auth");
+    Route::post('update/{task}', 'TaskController@update')->name('task.update')->middleware("auth");
+    Route::post('delete/{task}', 'TaskController@destroy')->name('task.destroy')->middleware("auth");
+    Route::get('show/{task}', 'TaskController@show')->name('task.show')->middleware("auth");
 
 });
 
 Route::prefix('type')->group(function () {
 
-    Route::get('','TypeController@index')->name('type.index');
-    Route::get('create', 'TypeController@create')->name('type.create');
-    Route::post('store', 'TypeController@store')->name('type.store');
-    Route::get('edit/{type}', 'TypeController@edit')->name('type.edit');
-    Route::post('update/{type}', 'TypeController@update')->name('type.update');
-    Route::post('delete/{type}', 'TypeController@destroy' )->name('type.destroy');
-    Route::get('show/{type}', 'TypeController@show')->name('type.show');
+    Route::get('','TypeController@index')->name('type.index')->middleware("auth");
+    Route::get('create', 'TypeController@create')->name('type.create')->middleware("auth");
+    Route::post('store', 'TypeController@store')->name('type.store')->middleware("auth");
+    Route::get('edit/{type}', 'TypeController@edit')->name('type.edit')->middleware("auth");
+    Route::post('update/{type}', 'TypeController@update')->name('type.update')->middleware("auth");
+    Route::post('delete/{type}', 'TypeController@destroy' )->name('type.destroy')->middleware("auth");
+    Route::get('show/{type}', 'TypeController@show')->name('type.show')->middleware("auth");
+
+});
+
+Route::prefix('pagination')->group(function () {
+
+    Route::get('','PaginatonSettingController@index')->name('pagination.index')->middleware("auth");
+    Route::get('create', 'PaginatonSettingController@create')->name('pagination.create')->middleware("auth");
+    Route::post('store', 'PaginatonSettingController@store')->name('pagination.store')->middleware("auth");
+    Route::get('edit/{paginatonsetting}', 'PaginatonSettingController@edit')->name('pagination.edit')->middleware("auth");
+    Route::post('update/{paginatonsetting}', 'PaginatonSettingController@update')->name('pagination.update')->middleware("auth");
+    Route::post('delete/{paginatonsetting}', 'PaginatonSettingController@destroy' )->name('pagination.destroy')->middleware("auth");
+    Route::get('show/{paginatonsetting}', 'PaginatonSettingController@show')->name('pagination.show')->middleware("auth");
 
 });
 

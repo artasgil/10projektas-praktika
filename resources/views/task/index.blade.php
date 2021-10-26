@@ -63,27 +63,39 @@
         <form action="{{ route('task.index') }}" method="GET">
             @csrf
             <div class="form-row">
-            <div class="form-group">
+            <div class="form-group col-3">
             <input class="form-control" type="text" name="search" placeholder="Enter search key" />
             </div>
             <div class="form-group">
             <button type="submit" class="btn btn-info">Search</button>
             </div>
         </form>
-    </div>
-        <td>
-            <a href="{{ route('task.index') }}" name="clear" class="btn btn-info">Clear filter </a>
-        </td>
+            <div class="form-group col-3">
+            <a  href="{{ route('task.index') }}" name="clear" class="btn btn-info">Clear filter </a>
+            </div>
+        </div>
 
         <form action="{{ route('task.index') }}" method="GET">
+            <div class="form-row">
+            <div class="form-group col-3">
             <select class="form-control" name="paginatonsetting">
                 @foreach ($paginatonsettings as $paginatonsetting)
-                    <option value="{{ $paginatonsetting->value }}" @if ($defaultLimit == $paginatonsetting->value) selected @endif>{{ $paginatonsetting->title }}
-                    </option>
+                @if ($paginatonsetting->visible == 1) <option value="{{$paginatonsetting->value }}" @if ($defaultLimit == $paginatonsetting->value) selected @endif>{{ $paginatonsetting->title }}
+                    </option> @endif
                 @endforeach
             </select>
+        </div>
+        <div class="form-group col-9">
             <button type="submit" class="btn btn-info">Set pagination</button>
+        </div>
+    </div>
+        <div class="form-row">
+            <div class="form-group col">
+            <a href="{{route('task.create')}}" class="btn btn-success">Add task</a>
+            </div>
+    </div>
         </form>
+
 
         <table class="table table-striped">
 

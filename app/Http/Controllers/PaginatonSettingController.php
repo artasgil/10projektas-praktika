@@ -14,7 +14,8 @@ class PaginatonSettingController extends Controller
      */
     public function index()
     {
-        //
+        $paginationsettings = PaginatonSetting::all();
+        return view("pagination.index", ["paginationsettings" => $paginationsettings]);
     }
 
     /**
@@ -24,7 +25,8 @@ class PaginatonSettingController extends Controller
      */
     public function create()
     {
-        //
+        $paginationsettings = PaginatonSetting::all();
+        return view("pagination.create", ["paginationsettings" => $paginationsettings]);
     }
 
     /**
@@ -35,7 +37,13 @@ class PaginatonSettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $paginatonsetting = new Paginatonsetting;
+        $paginatonsetting->title = $request->paginaton_title;
+        $paginatonsetting->value = $request->paginaton_value;
+        $paginatonsetting->visible = $request->paginaton_visible;
+        $paginatonsetting->save();
+
+        return redirect()->route("pagination.index");
     }
 
     /**
@@ -44,9 +52,10 @@ class PaginatonSettingController extends Controller
      * @param  \App\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function show(PaginatonSetting $paginatonSetting)
+    public function show(PaginatonSetting $paginatonsetting)
     {
-        //
+        return view('pagination.show',["paginatonsetting" => $paginatonsetting]);
+
     }
 
     /**
@@ -55,9 +64,10 @@ class PaginatonSettingController extends Controller
      * @param  \App\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function edit(PaginatonSetting $paginatonSetting)
+    public function edit(PaginatonSetting $paginatonsetting)
     {
-        //
+        // $paginatonSetting = PaginatonSetting::all();
+        return view('pagination.edit',["paginatonsetting" => $paginatonsetting]);
     }
 
     /**
@@ -67,9 +77,14 @@ class PaginatonSettingController extends Controller
      * @param  \App\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaginatonSetting $paginatonSetting)
+    public function update(Request $request, PaginatonSetting $paginatonsetting)
     {
-        //
+        $paginatonsetting->title = $request->paginaton_title;
+        $paginatonsetting->value = $request->paginaton_value;
+        $paginatonsetting->visible = $request->paginaton_visible;
+        $paginatonsetting->save();
+
+        return redirect()->route("pagination.index");
     }
 
     /**
@@ -78,8 +93,9 @@ class PaginatonSettingController extends Controller
      * @param  \App\PaginatonSetting  $paginatonSetting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaginatonSetting $paginatonSetting)
+    public function destroy(PaginatonSetting $paginatonsetting)
     {
-        //
+        $paginatonsetting->delete();
+        return redirect()->route("pagination.index");
     }
 }

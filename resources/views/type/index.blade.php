@@ -17,13 +17,23 @@
 
     <form action="{{route('type.index')}}" method="GET">
         @csrf
-        <input type="text" name="search" placeholder="Enter search key"/>
-        <button type="submit">Search</button>
+        <div class="form-row">
+        <div class="form-group col-3">
+        <input class="form-control" type="text" name="search" placeholder="Enter search key"/>
+        </div>
+        <div class="form-group">
+        <button class="btn btn-info" type="submit">Search</button>
+        </div>
     </form>
-
-    <td>
-        <a href="{{route('type.index')}}" name="clear" class="btn btn-secondary">Clear filter </a>
-    </td>
+    <div class="form-group col-3">
+        <a href="{{route('type.index')}}" name="clear" class="btn btn-info">Clear filter </a>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col">
+    <a href="{{route('type.create')}}" class="btn btn-success">Add type</a>
+    </div>
+</div>
 
     <table class="table table-striped">
 
