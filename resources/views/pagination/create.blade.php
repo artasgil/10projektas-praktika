@@ -32,14 +32,13 @@
                                         autofocus>
                                 </div>
                             </div>
-
-
                             <div class="form-group row">
-                                    <label class="col-md-4 text-md-right" for="inlineCheckbox1">Visible</label>
-                                    <div class="col-md-6">
-                                  <input type="hidden" name="paginaton_visible" value="0"/>
-                                    <input name="paginaton_visible" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
-                                  </div>
+                                <label class="col-md-4 text-md-right" for="inlineCheckbox1">Visible</label>
+                                <div class="col-md-6">
+                                    <input type="hidden" name="paginaton_visible" value="0" />
+                                    <input name="paginaton_visible" class="form-check-input" type="checkbox"
+                                        id="inlineCheckbox1" value="1">
+                                </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
