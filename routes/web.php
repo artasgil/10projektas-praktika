@@ -73,3 +73,5 @@ Route::prefix('owner')->group(function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/pdf','HomeController@generateStatisctics')->name('statistic.pdf')->middleware("auth");
+

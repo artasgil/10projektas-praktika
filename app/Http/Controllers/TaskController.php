@@ -131,7 +131,7 @@ class TaskController extends Controller
 
 
         $validateVar = $request->validate([
-            'task_title' => 'required|regex:/^[a-zA-Z\s]*$/|unique:tasks,title|min:6|max:225',
+            'task_title' => 'required|regex:/^[\pL\s]+$/u|unique:tasks,title|min:6|max:225',
             'task_description' => 'required|max:1500',
             'task_logo' => 'image|mimes:jpg,jpeg,png',
             'type_id' => 'required|numeric|gt:0|lte:'.$type_count,
@@ -181,7 +181,8 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $types = Type::all()->sortBy("title", SORT_REGULAR, true);
-        return view('task.edit',["task" => $task, "types"=>$types]);
+        $owners = Owner::all();
+        return view('task.edit',["task" => $task, "types"=>$types, "owners"=>$owners]);
     }
 
     /**
@@ -194,10 +195,26 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
 
+        $types = Type::all();
+        $owners = Owner::all();
+
+        $type_count = $types->count();
+        $owners_count = $owners->count();
+
+        $validateVar = $request->validate([
+        'task_title' => 'required|regex:/^[\pL\s]+$/u|min:6|max:225',
+        'task_description' => 'required|max:1500',
+        'task_logo' => 'image|mimes:jpg,jpeg,png',
+        'type_id' => 'required|numeric|gt:0|lte:'.$type_count,
+        'owner_id' => 'required|numeric|gt:0|lte:'.$owners_count,
+        'task_start_date'=>'required|before:task_end_date',
+        'task_end_date'=>'required'
+        ]);
 
         $task->title = $request->task_title;
         $task->description = $request->task_description;
         $task->type_id = $request->type_id;
+        $task->owner_id = $request->owner_id;
         $task->start_date = $request->task_start_date;
         $task->end_date = $request->task_end_date;
 
@@ -231,7 +248,8 @@ class TaskController extends Controller
     {
         $tasks = Task::all();
 
-        view()->share('tasks', $tasks);
+        view()->share(['tasks'=> $tasks]);
+        // view()->share('tasks_count', $tasks_count);
         $pdf = PDF::loadView("pdf_tasks_template", $tasks);
 
         return $pdf->download("tasks.pdf");

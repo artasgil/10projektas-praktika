@@ -47,6 +47,10 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $type = new Type;
+        $validateVar = $request->validate([
+            'type_title' => 'required|regex:/^[\pL\s]+$/u',
+            'type_description' => 'required|max:1500',
+        ]);
         $type->title = $request->type_title;
         $type->description = $request->type_description;
 
@@ -85,6 +89,10 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
+        $validateVar = $request->validate([
+            'type_title' => 'required|regex:/^[\pL\s]+$/u',
+            'type_description' => 'required|max:1500',
+        ]);
         $type->title = $request->type_title;
         $type->description = $request->type_description;
 

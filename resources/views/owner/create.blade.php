@@ -47,7 +47,7 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Owner email') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="owner_email" type="text" class="form-control form-control @error('owner_email') is-invalid @enderror" name="owner_email" autofocus>
+                                    <input id="owner_email" type="text" class="form-control @error('owner_email') is-invalid @enderror" name="owner_email" autofocus>
                                     @error('owner_email')
                                     <span role="alert" class="invalid-feedback">
                                         <strong>*{{$message}}</strong>
@@ -61,7 +61,7 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Owner phone') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="owner_phone" type="text" class="form-control form-control @error('owner_phone') is-invalid @enderror" name="owner_phone" autofocus>
+                                    <input id="owner_phone" type="text" class="form-control @error('owner_phone') is-invalid @enderror" name="owner_phone" autofocus>
                                     @error('owner_phone')
                                     <span role="alert" class="invalid-feedback">
                                         <strong>*{{$message}}</strong>

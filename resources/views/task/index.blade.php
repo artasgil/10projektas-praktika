@@ -113,7 +113,11 @@
             </div>
         </div>
 
-        <a class="btn btn-primary" href="{{route('tasks.pdf')}}">Export Tasks table to pdf </a>
+        <div class="form-row">
+            <div class="form-group col">
+        <a class="btn btn-dark" href="{{route('tasks.pdf')}}">Export Tasks table to pdf </a>
+            </div>
+        </div>
 
 
         <table class="table table-striped">
@@ -156,7 +160,7 @@
                         </form>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="{{route('task.pdf', [$task])}}">Export task</a>
+                        <a class="btn btn-dark" href="{{route('task.pdf', [$task])}}">Export task</a>
                     </td>
             @endforeach
         </table>

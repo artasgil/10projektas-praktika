@@ -43,8 +43,8 @@ class OwnerController extends Controller
         $owner = new Owner;
 
         $validateVar = $request->validate([
-            'owner_name' => 'required|alpha|min:2|max:15',
-            'owner_surname' => 'required|alpha|min:2|max:15',
+            'owner_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:15',
+            'owner_surname' => 'required|regex:/^[\pL\s]+$/u|min:2|max:15',
             'owner_email' => 'required|email',
             'owner_phone' => 'required',
             // 'owner_phone' => 'required|regex:(\+[0-9]/^3|7|0$/{2,6}(\s[0-9]{2,6})+)',
@@ -91,6 +91,14 @@ class OwnerController extends Controller
      */
     public function update(Request $request, Owner $owner)
     {
+        $validateVar = $request->validate([
+            'owner_name' => 'required|regex:/^[\pL\s]+$/u|min:2|max:15',
+            'owner_surname' => 'required|regex:/^[\pL\s]+$/u|min:2|max:15',
+            'owner_email' => 'required|email',
+            'owner_phone' => 'required',
+            // 'owner_phone' => 'required|regex:(\+[0-9]/^3|7|0$/{2,6}(\s[0-9]{2,6})+)',
+
+        ]);
         $owner->name = $request->owner_name;
         $owner->surname = $request->owner_surname;
         $owner->email = $request->owner_email;
