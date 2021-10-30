@@ -87,6 +87,7 @@
                 <div class="links">
                     <a href="{{route('task.index')}}">Task list</a>
                     <a href="{{route('type.index')}}">Type list</a>
+                    <a href="{{route('owner.index')}}">Owner list</a>
                     <a href="{{route('pagination.index')}}">Paginaton list</a>
                     <a class="btn btn-primary" href="{{route('statistic.pdf')}}">Export total records statistics to pdf </a>
                 </div>
