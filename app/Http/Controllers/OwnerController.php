@@ -108,6 +108,11 @@ class OwnerController extends Controller
      */
     public function destroy(Owner $owner)
     {
-        //
+        $owners_count = $owner->ownerAll->count();
+        if($owners_count!==0) {
+            return redirect()->route("owner.index")->with('error_message','Owner can not be deleted, because has companies');
+        }
+        $owner->delete();
+        return redirect()->route("owner.index")->with('sucess_message','Owner deleted successfully');
     }
 }

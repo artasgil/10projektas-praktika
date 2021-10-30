@@ -250,4 +250,16 @@ class TaskController extends Controller
 
     }
 
+    // public function generateStatistics(Task $task)
+    // {
+
+
+    //     view()->share('task', $task);
+
+    //     $pdf = PDF::loadView("pdf_task_template", $task);
+
+    //     return $pdf->download("task".$task->id.".pdf");
+
+    // }
+
 }
