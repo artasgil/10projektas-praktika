@@ -38,9 +38,25 @@ class PaginatonSettingController extends Controller
     public function store(Request $request)
     {
         $paginatonsetting = new Paginatonsetting;
+
+        $validateVar = $request->validate([
+            'paginaton_title' => 'required|alpha|min:6|max:225',
+            'paginaton_value' => 'required|numeric|integer|gte:1',
+
+        ]);
+
         $paginatonsetting->title = $request->paginaton_title;
         $paginatonsetting->value = $request->paginaton_value;
         $paginatonsetting->visible = $request->paginaton_visible;
+
+
+        //pazymetas = 1
+        //jeigu nepazymetas checkbox = false
+
+        if(!$paginatonsetting->visible) { //tikrina ar chekbox nepazymetas, ar grazinama false reiksme
+            $paginatonsetting->visible = 0;
+        }
+
         $paginatonsetting->save();
 
         return redirect()->route("pagination.index");
@@ -82,6 +98,11 @@ class PaginatonSettingController extends Controller
         $paginatonsetting->title = $request->paginaton_title;
         $paginatonsetting->value = $request->paginaton_value;
         $paginatonsetting->visible = $request->paginaton_visible;
+
+        if(!$paginatonsetting->visible) {
+            $paginatonsetting->visible = 0;
+        }
+
         $paginatonsetting->save();
 
         return redirect()->route("pagination.index");

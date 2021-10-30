@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Owner;
 use App\Task;
 use App\Type;
 use App\PaginatonSetting;
@@ -18,6 +19,7 @@ class TaskController extends Controller
     {
         // $tasks = Task::paginate(5);
         $types = Type::all();
+        $owners = Owner::all();
         $type_id = $request->type_id;
         $collumnName = $request->collumnName;
         $sortby=$request->sortby;
@@ -64,19 +66,30 @@ class TaskController extends Controller
                     $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate($paginatonsetting);
                 }
             }
-            if($type_id) {
-                if($paginatonsetting == 1) {
-                    $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->get();
 
-            }
-            else{
-            $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->paginate($paginatonsetting);
+            if($type_id) {
+
+                if($paginatonsetting == 1) {
+                    if($type_id == "all") {
+                        $tasks = Task::orderBy($collumnName, $sortby)->get();
+                    } else {
+                    $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->get();
+                    }
+                }
+                else
+                {
+                    if($type_id == "all") {
+                        $tasks = Task::orderBy($collumnName, $sortby)->paginate($paginatonsetting);
+                    } else {
+                    $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->paginate($paginatonsetting);
+                }
             }
         }
 
-            // $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate(10);
 
-        return view("task.index", ["tasks" => $tasks, "paginatonsettings" => $paginatonsettings, 'collumnName' => $collumnName, 'sortby' => $sortby, "types" => $types,"type_id"=> $type_id, "defaultLimit" => $paginatonsetting, "paginatonsettingg" => $paginatonsetting] );
+        // $tasks = Task::query()->where("title", 'LIKE', "%{$search}%")->orWhere("description", 'LIKE', "%{$search}%")->paginate(10);
+
+        return view("task.index", ["tasks" => $tasks, "paginatonsettings" => $paginatonsettings, 'collumnName' => $collumnName, 'sortby' => $sortby, "types" => $types,"type_id"=> $type_id, "defaultLimit" => $paginatonsetting, "paginatonsettingg" => $paginatonsetting, "owners" => $owners ]);
 
     }
 
@@ -88,8 +101,10 @@ class TaskController extends Controller
     public function create()
     {
         $types = Type::all();
+        $owners = Owner::all();
 
-        return view("task.create", ["types" => $types]);
+
+        return view("task.create", ["types" => $types, "owners" => $owners]);
     }
 
     /**
@@ -100,10 +115,34 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+
+        $types = Type::all();
+        $owners = Owner::all();
+
+
+        $type_count = $types->count();
+        $owners_count = $owners->count();
+
+
         $task = new Task;
+
+
+        $validateVar = $request->validate([
+            'task_title' => 'required|regex:/^[a-zA-Z\s]*$/|unique:tasks,title|min:6|max:225',
+            'task_description' => 'required|max:1500',
+            'task_logo' => 'image|mimes:jpg,jpeg,png',
+            'type_id' => 'required|numeric|gt:0|lte:'.$type_count,
+            'owner_id' => 'required|numeric|gt:0|lte:'.$owners_count,
+            'task_start_date'=>'required|before:task_end_date',
+            'task_end_date'=>'required'
+
+        ]);
         $task->title = $request->task_title;
         $task->description = $request->task_description;
         $task->type_id = $request->type_id;
+        $task->owner_id = $request->owner_id;
+        $task->start_date = $request->task_start_date;
+        $task->end_date = $request->task_end_date;
 
         if($request->has('task_logo'))
         {
@@ -151,9 +190,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $request->validate ([
-            'task_end_date'=>'after:task_start_date'
-        ]);
+
 
         $task->title = $request->task_title;
         $task->description = $request->task_description;

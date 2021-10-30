@@ -14,6 +14,7 @@ $factory->define(Task::class, function (Faker $faker) {
         'logo' => $faker->imageUrl(640,480,'cats'),
         'start_date' =>$faker->date(),
         'end_date' => $faker->date(),
+        'owner_id' => rand(1,10),
         'type_id' => rand(1,4)
     ];
 });

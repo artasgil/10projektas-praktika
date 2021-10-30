@@ -12,8 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(TypeSeeder::class);
+        $this->call(OwnerSeeder::class);
         $this->call(TaskSeeder::class);
-        $this->call(PaginationSettingSeeder::class);
+        $this->call(PaginatonSettingSeeder::class);
 
     }
 }

@@ -27,6 +27,6 @@ class TaskSeeder extends Seeder
         //     ["title" => "title10", "description"=> 'description10', "logo" => 'logo10', "type_id" => 2],
         // ]);
 
-        factory(Task::class,150)->create();
+        factory(Task::class,50)->create();
     }
 }

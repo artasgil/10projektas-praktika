@@ -19,8 +19,13 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Paginaton title') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="paginaton_title" type="text" class="form-control" name="paginaton_title"
+                                    <input id="paginaton_title" type="text" class="form-control @error('paginaton_title') is-invalid @enderror" name="paginaton_title"
                                         autofocus>
+                                        @error('paginaton_title')
+                                        <span role="alert" class="invalid-feedback">
+                                            <strong>*{{$message}}</strong>
+                                        </span>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -28,14 +33,19 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('Paginaton value') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="paginaton_value" type="text" class="form-control" name="paginaton_value"
+                                    <input id="paginaton_value" type="text" class="form-control @error('paginaton_value') is-invalid @enderror" name="paginaton_value"
                                         autofocus>
+                                        @error('paginaton_value')
+                                        <span role="alert" class="invalid-feedback">
+                                            <strong>*{{$message}}</strong>
+                                        </span>
+                                        @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-md-4 text-md-right" for="inlineCheckbox1">Visible</label>
                                 <div class="col-md-6">
-                                    <input type="hidden" name="paginaton_visible" value="0" />
+                                    {{-- <input type="hidden" name="paginaton_visible" value="0" /> --}}
                                     <input name="paginaton_visible" class="form-check-input" type="checkbox"
                                         id="inlineCheckbox1" value="1">
                                 </div>

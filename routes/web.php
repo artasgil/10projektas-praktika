@@ -55,6 +55,18 @@ Route::prefix('pagination')->group(function () {
 
 });
 
+Route::prefix('owner')->group(function () {
+
+    Route::get('','OwnerController@index')->name('owner.index')->middleware("auth");
+    Route::get('create', 'OwnerController@create')->name('owner.create')->middleware("auth");
+    Route::post('store', 'OwnerController@store')->name('owner.store')->middleware("auth");
+    Route::get('edit/{owner}', 'OwnerController@edit')->name('owner.edit')->middleware("auth");
+    Route::post('update/{owner}', 'OwnerController@update')->name('owner.update')->middleware("auth");
+    Route::post('delete/{owner}', 'OwnerController@destroy' )->name('owner.destroy')->middleware("auth");
+    Route::get('show/{owner}', 'OwnerController@show')->name('owner.show')->middleware("auth");
+
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
