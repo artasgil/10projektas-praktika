@@ -8,6 +8,9 @@ use App\Type;
 use App\PaginatonSetting;
 use Illuminate\Http\Request;
 
+use PDF;
+
+
 class TaskController extends Controller
 {
     /**
@@ -223,4 +226,28 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route("task.index");
     }
+
+    public function generatePDF()
+    {
+        $tasks = Task::all();
+
+        view()->share('tasks', $tasks);
+        $pdf = PDF::loadView("pdf_tasks_template", $tasks);
+
+        return $pdf->download("tasks.pdf");
+
+    }
+
+    public function generateTask(Task $task)
+    {
+
+
+        view()->share('task', $task);
+
+        $pdf = PDF::loadView("pdf_task_template", $task);
+
+        return $pdf->download("task".$task->id.".pdf");
+
+    }
+
 }

@@ -113,6 +113,8 @@
             </div>
         </div>
 
+        <a class="btn btn-primary" href="{{route('tasks.pdf')}}">Export Tasks table to pdf </a>
+
 
         <table class="table table-striped">
 
@@ -127,6 +129,8 @@
                 <th> Action </th>
                 <th> Action </th>
                 <th> Action </th>
+                <th> Action </th>
+
 
             </tr>
 
@@ -150,6 +154,9 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">DELETE</button>
                         </form>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="{{route('task.pdf', [$task])}}">Export task</a>
                     </td>
             @endforeach
         </table>

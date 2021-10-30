@@ -28,6 +28,9 @@ Route::prefix('task')->group(function () {
     Route::post('update/{task}', 'TaskController@update')->name('task.update')->middleware("auth");
     Route::post('delete/{task}', 'TaskController@destroy')->name('task.destroy')->middleware("auth");
     Route::get('show/{task}', 'TaskController@show')->name('task.show')->middleware("auth");
+    Route::get('/pdf','TaskController@generatePDF')->name('tasks.pdf')->middleware("auth");
+    Route::get('/pdf{task}','TaskController@generateTask')->name('task.pdf')->middleware("auth");
+
 
 });
 
