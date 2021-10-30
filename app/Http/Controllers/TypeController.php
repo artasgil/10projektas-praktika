@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Type;
 use App\Task;
+use PDF;
 
 use Illuminate\Http\Request;
 
@@ -115,4 +116,24 @@ class TypeController extends Controller
         $type->delete();
         return redirect()->route("type.index")->with('sucess_message','Type deleted successfully');
     }
+    public function generatePDF()
+    {
+        $types = Type::all();
+        view()->share(['types'=> $types]);
+        // view()->share('tasks_count', $tasks_count);
+
+        $pdf = PDF::loadView("pdf_types_template", $types);
+        return $pdf->download("types.pdf");
+
+    }
+
+    public function generateTask(Task $task)
+    {
+        view()->share('task', $task);
+
+        $pdf = PDF::loadView("pdf_task_template", $task);
+        return $pdf->download("task".$task->id.".pdf");
+
+    }
 }
+

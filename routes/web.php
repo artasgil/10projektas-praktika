@@ -43,6 +43,8 @@ Route::prefix('type')->group(function () {
     Route::post('update/{type}', 'TypeController@update')->name('type.update')->middleware("auth");
     Route::post('delete/{type}', 'TypeController@destroy' )->name('type.destroy')->middleware("auth");
     Route::get('show/{type}', 'TypeController@show')->name('type.show')->middleware("auth");
+    Route::get('/pdf','TypeController@generatePDF')->name('types.pdf')->middleware("auth");
+    Route::get('/pdf{type}','TypeController@generateTask')->name('type.pdf')->middleware("auth");
 
 });
 

@@ -47,7 +47,9 @@ class OwnerController extends Controller
             'owner_surname' => 'required|regex:/^[\pL\s]+$/u|min:2|max:15',
             'owner_email' => 'required|email',
             'owner_phone' => 'required',
-            // 'owner_phone' => 'required|regex:(\+[0-9]/^3|7|0$/{2,6}(\s[0-9]{2,6})+)',
+            // 'owner_phone' => 'required|regex:(\+|00)[370]{2,6}(\s[0-9]{2,6})+',
+
+
 
         ]);
         $owner->name = $request->owner_name;

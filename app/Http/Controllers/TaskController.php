@@ -247,23 +247,19 @@ class TaskController extends Controller
     public function generatePDF()
     {
         $tasks = Task::all();
-
         view()->share(['tasks'=> $tasks]);
         // view()->share('tasks_count', $tasks_count);
-        $pdf = PDF::loadView("pdf_tasks_template", $tasks);
 
+        $pdf = PDF::loadView("pdf_tasks_template", $tasks);
         return $pdf->download("tasks.pdf");
 
     }
 
     public function generateTask(Task $task)
     {
-
-
         view()->share('task', $task);
 
         $pdf = PDF::loadView("pdf_task_template", $task);
-
         return $pdf->download("task".$task->id.".pdf");
 
     }

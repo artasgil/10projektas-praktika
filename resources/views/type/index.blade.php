@@ -34,6 +34,11 @@
     <a href="{{route('type.create')}}" class="btn btn-success">Add type</a>
     </div>
 </div>
+<div class="form-row">
+        <div class="form-group col">
+    <a class="btn btn-dark" href="{{route('types.pdf')}}">Export Types table to pdf </a>
+        </div>
+</div>
 
     <table class="table table-striped">
 
