@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>2021-10-23 Paskaita</title>
+    <title>2021-10-23 & 30 Paskaita Paskaita</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

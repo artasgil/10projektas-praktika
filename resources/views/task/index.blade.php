@@ -131,9 +131,9 @@
                 <th> Start date </th>
                 <th> End date </th>
                 <th> Action </th>
-                <th> Action </th>
-                <th> Action </th>
-                <th> Action </th>
+                <th> Delete </th>
+
+
 
 
             </tr>
@@ -148,19 +148,17 @@
                     <td>{{ $task->start_date }} </td>
                     <td>{{ $task->end_date }} </td>
                     <td>
-                        <a href="{{ route('task.show', [$task]) }}" class="btn btn-secondary">Show </a>
-                    </td>
-                    <td>
-                        <a href="{{ route('task.edit', [$task]) }}" class="btn btn-primary">Edit </a>
-                    </td>
-                    <td>
+                        <div class="btn-group-vertical">
+                            <a href="{{ route('task.show', [$task]) }}" class="btn btn-secondary">Show </a>
+                            <a href="{{ route('task.edit', [$task]) }}" class="btn btn-primary">Edit </a>
+                            <a class="btn btn-dark" href="{{route('task.pdf', [$task])}}">Export task</a>
+                        </div>
+                        <td>
                         <form method="post" action={{ route('task.destroy', [$task]) }}>
                             @csrf
                             <button type="submit" class="btn btn-danger">DELETE</button>
                         </form>
-                    </td>
-                    <td>
-                        <a class="btn btn-dark" href="{{route('task.pdf', [$task])}}">Export task</a>
+                        <td>
                     </td>
             @endforeach
         </table>

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>2021-10-23 Paskaita</title>
+        <title>2021-10-23 & 30 Paskaita</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    2021-10-23 Paskaita - Praktika
+                    2021-10-23 & 2021-10-30 Paskaita - Praktika
                 </div>
 
                 <div class="links">
