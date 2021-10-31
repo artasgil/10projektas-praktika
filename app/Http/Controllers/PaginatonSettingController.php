@@ -104,7 +104,6 @@ class PaginatonSettingController extends Controller
         }
 
         $paginatonsetting->save();
-
         return redirect()->route("pagination.index");
     }
 

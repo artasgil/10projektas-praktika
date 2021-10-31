@@ -127,12 +127,12 @@ class TypeController extends Controller
 
     }
 
-    public function generateTask(Task $task)
+    public function generateType(Type $type)
     {
-        view()->share('task', $task);
+        view()->share('type', $type);
 
-        $pdf = PDF::loadView("pdf_task_template", $task);
-        return $pdf->download("task".$task->id.".pdf");
+        $pdf = PDF::loadView("pdf_type_template", $type);
+        return $pdf->download("type".$type->id.".pdf");
 
     }
 }

@@ -41,9 +41,7 @@ class HomeController extends Controller
         $types_count = $types->count();
         $owners_count = $owners->count();
 
-
         view()->share(['tasks_count' => $tasks_count, 'types_count' => $types_count, 'owners_count' => $owners_count]);
-        // view()->share('tasks_count', $tasks_count);
         $pdf = PDF::loadView("pdf_statistics");
 
         return $pdf->download("statistic.pdf");

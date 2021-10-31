@@ -44,7 +44,7 @@ Route::prefix('type')->group(function () {
     Route::post('delete/{type}', 'TypeController@destroy' )->name('type.destroy')->middleware("auth");
     Route::get('show/{type}', 'TypeController@show')->name('type.show')->middleware("auth");
     Route::get('/pdf','TypeController@generatePDF')->name('types.pdf')->middleware("auth");
-    Route::get('/pdf{type}','TypeController@generateTask')->name('type.pdf')->middleware("auth");
+    Route::get('/pdf{type}','TypeController@generateType')->name('type.pdf')->middleware("auth");
 
 });
 
@@ -69,6 +69,8 @@ Route::prefix('owner')->group(function () {
     Route::post('update/{owner}', 'OwnerController@update')->name('owner.update')->middleware("auth");
     Route::post('delete/{owner}', 'OwnerController@destroy' )->name('owner.destroy')->middleware("auth");
     Route::get('show/{owner}', 'OwnerController@show')->name('owner.show')->middleware("auth");
+    Route::get('/pdf','OwnerController@generatePDF')->name('owners.pdf')->middleware("auth");
+    Route::get('/pdf{owner}','OwnerController@generateOwner')->name('owner.pdf')->middleware("auth");
 
 });
 

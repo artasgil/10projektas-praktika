@@ -49,6 +49,7 @@
             <th> Action </th>
             <th> Action </th>
             <th> Action </th>
+            <th> Action </th>
 
         </tr>
 
@@ -68,6 +69,9 @@
                     @csrf
                     <button type="submit" class="btn btn-danger">DELETE</button>
                 </form>
+            </td>
+            <td>
+                <a class="btn btn-dark" href="{{route('type.pdf', [$type])}}">Export type</a>
             </td>
         @endforeach
         </table>

@@ -19,6 +19,11 @@
         <a href="{{route('owner.create')}}" class="btn btn-success">Add owner</a>
         </div>
     </div>
+    <div class="form-row">
+        <div class="form-group col">
+    <a class="btn btn-dark" href="{{route('owners.pdf')}}">Export Owners table to pdf </a>
+        </div>
+    </div>
     <table class="table table-striped">
 
         <tr>
@@ -30,7 +35,7 @@
             <th> Action </th>
             <th> Action </th>
             <th> Action </th>
-
+            <th> Action </th>
         </tr>
 
         @foreach ($owners as $owner)
@@ -52,8 +57,10 @@
                     <button type="submit" class="btn btn-danger">DELETE</button>
                 </form>
             </td>
+            <td>
+                <a class="btn btn-dark" href="{{route('owner.pdf', [$owner])}}">Export owner</a>
+            </td>
         @endforeach
         </table>
-
     </div>
     @endsection

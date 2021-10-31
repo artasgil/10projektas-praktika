@@ -75,7 +75,8 @@ class TaskController extends Controller
                 if($paginatonsetting == 1) {
                     if($type_id == "all") {
                         $tasks = Task::orderBy($collumnName, $sortby)->get();
-                    } else {
+                    }
+                    else {
                     $tasks = Task::orderBy($collumnName, $sortby)->where("type_id", $type_id)->get();
                     }
                 }
@@ -140,6 +141,7 @@ class TaskController extends Controller
             'task_end_date'=>'required'
 
         ]);
+
         $task->title = $request->task_title;
         $task->description = $request->task_description;
         $task->type_id = $request->type_id;
@@ -153,11 +155,12 @@ class TaskController extends Controller
             $task->logo = '/images/'.$imageName;
             $request->task_logo->move(public_path('images'), $imageName);
 
-         }else {
+         } else {
+
             $task->logo = '/images/noimage.png';
         }
-        $task->save();
 
+        $task->save();
         return redirect()->route("task.index");
     }
 
@@ -224,11 +227,11 @@ class TaskController extends Controller
             $task->logo = '/images/'.$imageName;
             $request->task_logo->move(public_path('images'), $imageName);
 
-         }else {
+         } else {
             $task->logo = '/images/noimage.png';
         }
-        $task->save();
 
+        $task->save();
         return redirect()->route("task.index");
     }
 
@@ -263,17 +266,5 @@ class TaskController extends Controller
         return $pdf->download("task".$task->id.".pdf");
 
     }
-
-    // public function generateStatistics(Task $task)
-    // {
-
-
-    //     view()->share('task', $task);
-
-    //     $pdf = PDF::loadView("pdf_task_template", $task);
-
-    //     return $pdf->download("task".$task->id.".pdf");
-
-    // }
 
 }

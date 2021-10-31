@@ -28,22 +28,24 @@
     }
 </style>
 
-    <table class="styled-table">
-        <thead>
-            <tr>
-                <th> ID </th>
-                <th> Title </th>
-                <th> Company(Task) Description </th>
-                <th> Type Description </th>
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th> ID </th>
+            <th> Name </th>
+            <th> Surname </th>
+            <th> Email </th>
+            <th> Phone </th>
+        </tr>
+    </thead>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{$task->id}}</td>
-                <td>{{$task->title}}</td>
-                <td>{!!$task->description!!}</td>
-                <td>{!!$task->taskType->description!!}</td>
-            </tr>
-        </tbody>
-    </table>
+    <tbody>
+        <tr>
+            <td> {{$owner->id}} </td>
+            <td> {{$owner->name}} </td>
+            <td> {{$owner->surname }} </td>
+            <td> {{$owner->email }} </td>
+            <td> {{$owner->phone }} </td>
+        </tr>
+    <tbody>
+</table>
